@@ -12,7 +12,6 @@ Pre-built binaries are available on the [Releases](https://github.com/Zalaano666
 |---|---|---|
 | [git](git/) | 2.54.0 | Includes gitweb (patched for Perl 5.8.8) |
 | [busybox](busybox/) | 1.37.0 | 402 applets, HTTPS via built-in TLS |
-| [rsync](rsync/) | 3.4.1 | Protocol 32, no libc.a patches required |
 
 ## Why this is hard
 
@@ -80,7 +79,6 @@ Requires an x86-64 Ubuntu/Debian host with ~10 GB free disk space and sudo.
 Run once — the toolchain is shared by all packages.
 
 ```sh
-apt-get install -y build-essential gcc g++ make wget curl git unzip rsync \
     bc cpio python3 bison flex libncurses-dev libssl-dev
 
 git clone --depth=1 https://git.buildroot.net/buildroot /root/buildroot
