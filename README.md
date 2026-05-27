@@ -102,9 +102,9 @@ make toolchain -j$(nproc)
 
 | Device | SoC | CPU | Kernel | Result |
 |---|---|---|---|---|
-| Netgear ReadyNAS NV+ | IT3107 | SPARC V8 ~400 MHz | Linux 2.6.17.14 | ✅ Works |
+| Netgear ReadyNAS Duo v1 | IT3107 | SPARC V8 ~400 MHz | Linux 2.6.17.14 | ✅ Works |
 
-Other ReadyNAS models based on the same IT3107 SoC (ReadyNAS Duo, ReadyNAS 1100)
+Other ReadyNAS models based on the same IT3107 SoC (ReadyNAS 1100)
 should also work. If you test it on another model, please open an issue or PR.
 
 ## Prior work
