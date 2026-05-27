@@ -19,6 +19,7 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <stddef.h>
 
 #ifndef UTIME_NOW
 #define UTIME_NOW  ((1l << 30) - 1l)
@@ -68,4 +69,10 @@ int utimensat(int dirfd, const char *path,
     }
 
     return _utimes(path, tvp);
+}
+
+int __GI_utimensat(int dirfd, const char *path,
+                   const struct timespec ts[2], int flags)
+{
+    return utimensat(dirfd, path, ts, flags);
 }
