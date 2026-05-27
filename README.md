@@ -4,7 +4,12 @@ Cross-compiled static git binary and build instructions for the Netgear ReadyNAS
 family based on the **Infrant Technologies NEON IT3107 SoC** (plain SPARC V8,
 ~256 MB RAM, Linux 2.6.17.14, glibc 2.3.2).
 
-The stock firmware ships with git 2.21.0 (2019). This builds git **2.54.0**.
+The stock firmware ships with a very old git version. A pre-built git 2.21.0
+(2019) was previously available thanks to
+[mfe-/ReadyNASDuoSparc](https://github.com/mfe-/ReadyNASDuoSparc) — the
+go-to resource for ReadyNAS SPARC binaries. This repo picks up where that left
+off, building git **2.54.0** with a newer toolchain that correctly targets plain
+SPARC V8.
 
 ## Quick install (pre-built binary)
 
