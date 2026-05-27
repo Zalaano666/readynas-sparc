@@ -36,7 +36,7 @@ done'
 Requires an x86-64 Ubuntu/Debian host with ~10 GB free disk space and sudo.
 
 ```sh
-git clone https://github.com/YOUR_USERNAME/readynas-sparc-git
+git clone https://github.com/Zalaano666/readynas-sparc-git
 cd readynas-sparc-git
 sudo sh build.sh          # full build including toolchain (~1–2 hours)
 # or, if buildroot toolchain is already built:
@@ -91,6 +91,29 @@ With `__UCLIBC_USE_TIME64__` set and Linux 7.x headers, both branches in
 | Wheezy binary with ELF patch (0x12→0x02) | SIGILL | Wheezy libc.a uses `cas` instructions (SPARC V9) |
 | musl-cross-make sparc-linux-musl | Build fails | musl does not support sparc32 |
 | Gaisler gcc-7.1 (ReadyNASDuoSparc toolchain) | ENOEXEC inside Wheezy chroot | V7/V8 binary cannot run in sparc32plus chroot |
+
+## gitweb compatibility
+
+git 2.54.0 ships a `gitweb.cgi` that requires **Perl 5.26** (`use 5.026`) and
+uses the `/r` non-destructive regex modifier — both unavailable on the NAS's
+Perl 5.8.8. The tarball therefore does **not** include git 2.54.0's gitweb.
+
+A working replacement is provided: [`gitweb.cgi`](gitweb.cgi) is git 2.21.0's
+`gitweb.perl` with:
+
+- `use 5.008` (compatible with Perl 5.8.8)
+- `use filetest 'access'` removed (not installed on the NAS)
+- All `++PLACEHOLDER++` build variables substituted for NAS paths:
+  - git binary: `/usr/local/bin/git`
+  - project root: `/c/backup/git-repos`
+  - static assets: `static/gitweb.css`, `static/git-logo.png`, etc.
+
+Install alongside the main tarball:
+
+```sh
+scp gitweb.cgi root@<NAS_IP>:/usr/local/share/gitweb/gitweb.cgi
+ssh root@<NAS_IP> 'chmod +x /usr/local/share/gitweb/gitweb.cgi'
+```
 
 ## Verified hardware
 
