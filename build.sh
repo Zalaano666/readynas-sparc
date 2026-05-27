@@ -79,7 +79,7 @@ patch_libc() {
     echo "==> Step 3: patch libc.a (replace five ENOSYS syscall wrappers)"
     cp "${LIBC}" "${LIBC}.bak"
 
-    for src in fstat64 stat64 rename utimensat; do
+    for src in fstat64 stat64 rename utimensat clock_gettime; do
         ${CROSS}-gcc -O2 -mcpu=v8 -I"${UCLIBC_INC}" \
             -c "${PATCHES_DIR}/custom_${src}.c" -o "/tmp/${src}.os"
         ${AR} r "${LIBC}" "/tmp/${src}.os"
@@ -87,6 +87,7 @@ patch_libc() {
     done
 
     # stat64.c contains both stat64 and lstat64 — output named stat64.os covers both
+    # clock_gettime64 (403) is unavailable on 2.6.17 — implement via gettimeofday (116)
     echo "==> libc.a patched."
 }
 
