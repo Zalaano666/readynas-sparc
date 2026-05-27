@@ -71,13 +71,10 @@ direct wrappers before linking:
 | `lstat64.os` | statx (360) | Linux 4.11 | lstat64 (132) |
 | `rename.os` | renameat2 (345) | Linux 3.15 | rename (128) |
 | `utimensat.os` | utimensat (310) | Linux 2.6.22 | utimes (271) |
-| `clock_gettime.os` | clock_gettime64 (403) + TIME64 struct | Linux 5.1 | gettimeofday (116) |
 
 The replacement wrappers are in the [`patches/`](patches/) directory. Each uses
 inline SPARC assembly (`ta 0x10` trap) to call the syscall directly, bypassing
 the version detection in uclibc-ng.
-
-**clock_gettime note**: the TIME64 `struct timespec` on 32-bit systems has a 64-bit `tv_sec`, but the old `clock_gettime` syscall (263) writes a 32-bit struct. Passing uclibc's `struct timespec` directly causes a big-endian struct layout mismatch. The replacement uses a local 32-bit kernel struct and widens the result. `gettimeofday` (116) is used instead of `clock_gettime` (263) because the same 32-vs-64 layout mismatch applies — but `struct timeval` is more straightforward to wrap with a private 32-bit type.
 
 **fstat64 note**: the direct `fstat64` syscall branch in uclibc-ng's `fstat64.c`
 is also gated by `(!__UCLIBC_USE_TIME64__ || LINUX_VERSION_CODE <= 5.1.0)`.
