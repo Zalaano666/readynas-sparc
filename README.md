@@ -12,6 +12,7 @@ Pre-built binaries are available on the [Releases](https://github.com/Zalaano666
 |---|---|---|
 | [git](git/) | 2.54.0 | Includes gitweb (patched for Perl 5.8.8) |
 | [busybox](busybox/) | 1.37.0 | 402 applets, HTTPS via built-in TLS |
+| [rsync](rsync/) | 3.4.1 | Protocol 32, no libc.a patches required |
 
 ## Why this is hard
 
