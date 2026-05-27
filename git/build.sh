@@ -29,7 +29,7 @@ UCLIBC_INC="${BUILDROOT_DIR}/output/host/sparc-buildroot-linux-uclibc/sysroot/us
 LIBC="${BUILDROOT_DIR}/output/host/sparc-buildroot-linux-uclibc/sysroot/usr/lib/libc.a"
 AR="${BUILDROOT_DIR}/output/host/bin/sparc-buildroot-linux-uclibc-ar"
 
-PATCHES_DIR="$(cd "$(dirname "$0")/patches" && pwd)"
+PATCHES_DIR="$(cd "$(dirname "$0")/../patches" && pwd)"
 
 # ── Step 1: buildroot toolchain ───────────────────────────────────────────────
 build_toolchain() {
