@@ -19,7 +19,7 @@ int rename(const char *oldpath, const char *newpath)
     register long g1 __asm__("g1") = __NR_rename;
     register long o0 __asm__("o0") = (long)oldpath;
     register long o1 __asm__("o1") = (long)newpath;
-    __asm__ __volatile__("ta 0x10"
+    __asm__ __volatile__("ta 0x10\n\tbcc 1f\n\tnop\n\tsub %%g0,%%o0,%%o0\n\t1:"
         : "+r"(o0) : "r"(g1), "r"(o1) : "memory", "cc");
     if ((unsigned long)o0 >= (unsigned long)-4095L) {
         errno = (int)-o0;

@@ -25,7 +25,7 @@ UCLIBC_INC="${BUILDROOT_DIR}/output/host/sparc-buildroot-linux-uclibc/sysroot/us
 patch_libc() {
     echo "==> Patching libc.a (six syscall wrappers)"
     cp "${LIBC}" "${LIBC}.bak"
-    for src in fstat64 stat64 rename utimensat clock_gettime; do
+    for src in fstat64 stat64 lstat64 rename utimensat clock_gettime; do
         ${CROSS}-gcc -O2 -mcpu=v8 -I"${UCLIBC_INC}" \
             -c "${PATCHES_DIR}/custom_${src}.c" -o "/tmp/${src}.os"
         ${AR} r "${LIBC}" "/tmp/${src}.os"

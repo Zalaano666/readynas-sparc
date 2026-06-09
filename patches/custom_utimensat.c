@@ -33,7 +33,7 @@ static int _utimes(const char *path, const struct timeval tv[2])
     register long g1 __asm__("g1") = __NR_utimes;
     register long o0 __asm__("o0") = (long)path;
     register long o1 __asm__("o1") = (long)tv;
-    __asm__ __volatile__("ta 0x10"
+    __asm__ __volatile__("ta 0x10\n\tbcc 1f\n\tnop\n\tsub %%g0,%%o0,%%o0\n\t1:"
         : "+r"(o0) : "r"(g1), "r"(o1) : "memory", "cc");
     if ((unsigned long)o0 >= (unsigned long)-4095L) {
         errno = (int)-o0;

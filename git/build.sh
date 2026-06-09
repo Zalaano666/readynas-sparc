@@ -79,14 +79,14 @@ patch_libc() {
     echo "==> Step 3: patch libc.a (replace five ENOSYS syscall wrappers)"
     cp "${LIBC}" "${LIBC}.bak"
 
-    for src in fstat64 stat64 rename utimensat; do
+    for src in fstat64 stat64 lstat64 rename utimensat; do
         ${CROSS}-gcc -O2 -mcpu=v8 -I"${UCLIBC_INC}" \
             -c "${PATCHES_DIR}/custom_${src}.c" -o "/tmp/${src}.os"
         ${AR} r "${LIBC}" "/tmp/${src}.os"
         echo "   patched ${src}.os"
     done
 
-    # stat64.c contains both stat64 and lstat64 — output named stat64.os covers both
+    # stat64 and lstat64 are SEPARATE .os files (1:1 with uclibc objects)
     echo "==> libc.a patched."
 }
 

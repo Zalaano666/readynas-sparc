@@ -28,7 +28,7 @@ int clock_gettime(clockid_t clk_id, struct timespec *tp)
     register long g1 __asm__("g1") = __NR_gettimeofday;
     register long o0 __asm__("o0") = (long)&tv;
     register long o1 __asm__("o1") = 0;
-    __asm__ __volatile__("ta 0x10"
+    __asm__ __volatile__("ta 0x10\n\tbcc 1f\n\tnop\n\tsub %%g0,%%o0,%%o0\n\t1:"
         : "+r"(o0) : "r"(g1), "r"(o1) : "memory", "cc");
     if ((unsigned long)o0 >= (unsigned long)-4095L) {
         errno = (int)-o0;
