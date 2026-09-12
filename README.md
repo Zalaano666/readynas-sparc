@@ -1,3 +1,5 @@
+![readynas-sparc — new software for vintage NAS hardware](readynas-sparc-cover.png)
+
 # readynas-sparc
 
 Cross-compiled static binaries and build instructions for the Netgear ReadyNAS
